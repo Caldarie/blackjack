@@ -10,34 +10,23 @@ struct DealerHandDisplay: View {
     
     @Binding var dealer: Status
     
-    
+    private let vm = HandDisplayViewModel()
     
     var body: some View {
         HStack {
-            Image(uiImage: UIImage(named: retrievePicture())!)
-                .resizable()
-                .frame(width: 99, height: 153)
-                .aspectRatio(contentMode: .fit)
-                .layoutPriority(1)
-            
-            Image(uiImage: UIImage(named: retrievePicture())!)
-                .resizable()
-                .frame(width: 99, height: 153)
-                .aspectRatio(contentMode: .fit)
-                .layoutPriority(1)
-            
+            ForEach(ArrayOfCardImages(), id: \.self) { value in
+                Image(uiImage: UIImage(named: value)!)
+                    .resizable()
+                    .frame(width: 99, height: 153)
+                    .aspectRatio(contentMode: .fit)
+                    .layoutPriority(1)
+            }
         }
     }
-}
-
-
-func retrievePicture() -> String {
-    let deckOfCards = loadJson(withFilename: "deck_of_cards")
-    let chosenCard = deckOfCards?[1]
-    let cardImgLoc = chosenCard?.loc
-    return cardImgLoc!
-    //    print(deckOfCards!)
-    //    let reddit =
-    //    print(reddit.loc)
     
+    
+    func ArrayOfCardImages() -> [String]{
+        let imageLocations = vm.getImageLocations(hand: dealer.hand!)
+        return imageLocations
+    }
 }
