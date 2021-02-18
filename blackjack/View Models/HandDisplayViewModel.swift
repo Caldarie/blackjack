@@ -8,6 +8,14 @@
 import Foundation
 
 
-class HandViewModel{
+class HandDisplayViewModel{
     
+    public func getImageLocations(hand: [Deck]) -> [String]{
+        var stringLoc: [String] = []
+        for i in hand{
+            stringLoc.append(i.loc)
+        }
+        print(stringLoc)
+        return stringLoc
+    }
 }
