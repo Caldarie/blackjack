@@ -11,18 +11,24 @@ import Combine
 
 struct OptionButtons: View {
     
-    @Binding var isDealt: Bool
-    @Binding var displayResult: String
+    @Binding var message: String
     @Binding var deck: [Deck]?
     @Binding var player: Status
     @Binding var dealer: Status
-
+    
+    @State private var status = gameState.reset
+    
     private let vm = ButtonViewModel()
+    private enum gameState {
+        case start
+        case finished
+        case reset
+    }
     
     var body: some View {
         HStack {
-            //Deal button will disappear once its been pressed
-            if !self.$isDealt.wrappedValue{
+            switch status{
+            case .reset:
                 Button(action: dealAction) {
                     Text("Deal")
                         .font(.system(size: 20))
@@ -31,10 +37,8 @@ struct OptionButtons: View {
                         .background(Color("Primary"))
                         .cornerRadius(CGFloat(10))
                         .foregroundColor(Color("AltText"))
-                    
                 }
-                
-            }else{
+            case .start:
                 Button(action: standAction) {
                     Text("Stand")
                         .font(.system(size: 20))
@@ -45,7 +49,6 @@ struct OptionButtons: View {
                         .foregroundColor(Color("AltText"))
                     
                 }
-                
                 
                 Spacer()
                     .frame(width: 20)
@@ -60,6 +63,17 @@ struct OptionButtons: View {
                         .cornerRadius(CGFloat(10))
                         .foregroundColor(Color("AltText"))
                 }
+            case .finished:
+                Button(action: resetAction) {
+                    Text("Play Again")
+                        .font(.system(size: 20))
+                        .fixedSize()
+                        .frame(width: CGFloat(100), height: CGFloat(52))
+                        .background(Color("Primary"))
+                        .cornerRadius(CGFloat(10))
+                        .foregroundColor(Color("AltText"))
+                    
+                }
             }
             
         }
@@ -67,14 +81,15 @@ struct OptionButtons: View {
     
     func dealAction() {
         
+        //Start dealing
         let dealt = vm.deal(deck: deck, dealerHand: dealer.hand, playerHand: player.hand)
         
-        self.isDealt = true
+        self.status = gameState.start
         self.deck = dealt.fromDeck
         self.dealer.hand = dealt.toDealerHand
         self.player.hand = dealt.toPlayerHand
-
-
+        
+        
         //debugging
         print("------------------deal------------------")
         print("deck count:" + String(deck!.count))
@@ -106,7 +121,7 @@ struct OptionButtons: View {
         
         //Hit the dealer until score becomes 17 or higher
         while  dealer.totalCardScore < 17{
-   
+            
             let hitDealer = vm.hit(deck: deck, hand: dealer.hand)
             self.dealer.hand = hitDealer.toHand
             self.deck = hitDealer.fromDeck
@@ -125,18 +140,11 @@ struct OptionButtons: View {
         let result = vm.result(playerScore: player.totalCardScore, dealerScore: dealer.totalCardScore)
         self.player.totalWins += result.wins
         self.dealer.totalWins += result.losses
-        self.displayResult = result.reasonforResult
-        print(displayResult)
+        self.message = result.reasonforResult
+        print("Result \(message)")
         
-        //reset the game
-        self.isDealt = false
-        self.displayResult = ""
-        self.deck = loadJson(withFilename: "deck_of_cards")
-        self.player.hand = []
-        self.player.totalCardScore = 0
-        self.dealer.hand = []
-        self.player.totalCardScore = 0
-        
+        //Finished game
+        self.status = gameState.finished
     }
     
     func standAction() {
@@ -154,7 +162,7 @@ struct OptionButtons: View {
         
         //Hit the dealer until score becomes 17 or higher
         while  dealer.totalCardScore < 17{
-   
+            
             let hitDealer = vm.hit(deck: deck, hand: dealer.hand)
             self.dealer.hand = hitDealer.toHand
             self.deck = hitDealer.fromDeck
@@ -173,19 +181,23 @@ struct OptionButtons: View {
         let result = vm.result(playerScore: player.totalCardScore, dealerScore: dealer.totalCardScore)
         self.player.totalWins += result.wins
         self.dealer.totalWins += result.losses
-        self.displayResult = result.reasonforResult
-        print(displayResult)
+        self.message = result.reasonforResult
+        print("Result \(message)")
         
-        //reset the game
-        self.isDealt = false
-        self.displayResult = ""
+        //Finished game
+        self.status = gameState.finished
+        
+    }
+    
+    func resetAction(){
+        self.message = ""
         self.deck = loadJson(withFilename: "deck_of_cards")
         self.player.hand = []
         self.player.totalCardScore = 0
         self.dealer.hand = []
         self.player.totalCardScore = 0
+        self.status = gameState.reset
     }
-    
     
 }
 
