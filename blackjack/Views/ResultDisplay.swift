@@ -17,7 +17,7 @@ struct ResultDisplay: View {
         HStack {
             
             Text(
-                String(playerStatus.totalWins)
+                String(player.totalWins)
             )
             .fixedSize()
             .font(.system(size: 72))
@@ -26,7 +26,7 @@ struct ResultDisplay: View {
                 .frame(width: 20)
             
             Text(
-                String(dealerStatus.totalWins)
+                String(dealer.totalWins)
             )
             .fixedSize()
             .font(.system(size: 72))

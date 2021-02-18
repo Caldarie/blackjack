@@ -11,5 +11,5 @@ struct Status: Decodable {
     
     var totalWins: Int
     var hand: [Deck]?
-    var totalPoints: Int
+    var totalCardScore: Int
 }

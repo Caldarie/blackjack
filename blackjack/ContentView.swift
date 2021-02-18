@@ -10,9 +10,10 @@ import SwiftUI
 struct ContentView: View {
     
     @State var isDealt: Bool = false
+    @State var displayResult: String = ""
     @State var deck = loadJson(withFilename: "deck_of_cards")
-    @State var player = Status(totalWins: 0, hand: [], totalPoints: 0)
-    @State var dealer = Status(totalWins: 0, hand: [], totalPoints: 0)
+    @State var player = Status(totalWins: 0, hand: [], totalCardScore: 0)
+    @State var dealer = Status(totalWins: 0, hand: [], totalCardScore: 0)
     
     
     //    print(deckOfCards!)
@@ -40,7 +41,7 @@ struct ContentView: View {
             Spacer()
                 .frame(height: CGFloat(20))
             
-            OptionButtons(isDealt: $isDealt, deck: $deck, player: $player, dealer: $dealer)
+            OptionButtons(isDealt: $isDealt, displayResult: $displayResult, deck: $deck, player: $player, dealer: $dealer)
             
             Spacer()
                 .frame(height: CGFloat(20))
