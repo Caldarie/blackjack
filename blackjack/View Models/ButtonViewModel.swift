@@ -37,10 +37,6 @@ class ButtonViewModel {
         return(currentDeck, currentHand)
     }
     
-    public func stand() {
-        print("stand")
-    }
-    
     
     public func total(hand: [Deck?]) -> Int{
         var totalCount = 0
