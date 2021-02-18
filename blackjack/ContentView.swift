@@ -9,23 +9,19 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var isDealt: Bool = false
-    @State var displayResult: String = ""
+    //Todo - Initialsise in a repository to manage state
+    @State var message: String = "Welcome. Press deal to start."
     @State var deck = loadJson(withFilename: "deck_of_cards")
-    @State var player = Status(totalWins: 0, hand: [], totalCardScore: 0)
-    @State var dealer = Status(totalWins: 0, hand: [], totalCardScore: 0)
+    @State var player = Status()
+    @State var dealer = Status()
+ 
     
-    
-    //    print(deckOfCards!)
-    //    let reddit = deckOfCards[1]
-    //    print(reddit.loc)
     
     var body: some View {
         VStack {
             
             
-            ResultDisplay(player: $player, dealer: $dealer)
-            
+            ScoreDisplay(player: $player, dealer: $dealer)
             
             Spacer()
                 .frame(height: CGFloat(20))
@@ -36,12 +32,18 @@ struct ContentView: View {
             Spacer()
                 .frame(height: CGFloat(20))
             
+            
+            MessageDisplay(message: $message)
+            
+            Spacer()
+                .frame(height: CGFloat(20))
+            
             PlayerHandDisplay(player: $player)
             
             Spacer()
                 .frame(height: CGFloat(20))
             
-            OptionButtons(isDealt: $isDealt, displayResult: $displayResult, deck: $deck, player: $player, dealer: $dealer)
+            OptionButtons(message: $message, deck: $deck, player: $player, dealer: $dealer)
             
             Spacer()
                 .frame(height: CGFloat(20))
