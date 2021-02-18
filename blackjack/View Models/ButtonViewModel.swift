@@ -9,7 +9,7 @@ import Foundation
 
 class ButtonViewModel {
     
-    public func deal(deck: [Deck]?, dealerHand: [Deck]?, playerHand: [Deck]?) -> (newDeck: [Deck], newDealerHand: [Deck], newPlayerHand: [Deck]){
+    public func deal(deck: [Deck]?, dealerHand: [Deck]?, playerHand: [Deck]?) -> (fromDeck: [Deck], toDealerHand: [Deck], toPlayerHand: [Deck]){
         //Shuffle the deck
         var currentDeck = deck!.shuffled()
         print(currentDeck)
@@ -25,7 +25,7 @@ class ButtonViewModel {
         return(currentDeck, currentDealerHand, currentPlayerHand)
     }
     
-    public func hit(deck: [Deck]?, hand: [Deck]?) -> (newDeck: [Deck], newHand: [Deck]){
+    public func hit(deck: [Deck]?, hand: [Deck]?) -> (fromDeck: [Deck], toHand: [Deck]){
         
         //retrieve a card from the deck
         let retrievedCard = Array(deck!.prefix(1))
@@ -63,9 +63,34 @@ class ButtonViewModel {
         return totalCount
     }
     
-    public func result() -> Int{
+    public func result(playerScore: Int, dealerScore: Int) -> (wins: Int, losses: Int, reasonforResult: String){
         
-        return 0
+        var currentPlayerScore: Int = 0
+        var currentDealerScore: Int = 0
+        var currentReasonForScore: String = ""
+        
+        if playerScore == 21 {
+            currentPlayerScore = 1
+            currentReasonForScore = "Player Blackjack! You win!"
+        }else if dealerScore == 21{
+            currentDealerScore = 1
+            currentReasonForScore = "Dealer Blackjack. You lose."
+        }else if playerScore > 21{
+            currentDealerScore = 1
+            currentReasonForScore = "Player Busted. You lose."
+        }else if dealerScore > 21{
+            currentPlayerScore = 1
+            currentReasonForScore = "Dealer Busted! You win!"
+        }else if playerScore < dealerScore {
+            currentDealerScore = 1
+            currentReasonForScore = "You lose."
+        }else if playerScore > dealerScore {
+            currentPlayerScore = 1
+            currentReasonForScore = "You win!"
+        }
+        
+        
+        return (currentPlayerScore, currentDealerScore, currentReasonForScore)
     }
     
 }
