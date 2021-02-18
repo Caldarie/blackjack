@@ -12,19 +12,12 @@ import Combine
 struct OptionButtons: View {
     
     @Binding var isDealt: Bool
+    @Binding var displayResult: String
     @Binding var deck: [Deck]?
     @Binding var player: Status
     @Binding var dealer: Status
 
-//    @Binding var dealerHand: [Deck]?
-//    @Binding var playerHand: [Deck]?
-//    @Binding var deck: [Deck]?
-//    @Binding var dealerTotal: Int
-//    @Binding var playerTotal: Int
-    
-//    @State private var buttonState: ButtonState = .deal
-    
-    private let viewModel = ButtonViewModel()
+    private let vm = ButtonViewModel()
     
     var body: some View {
         HStack {
@@ -73,49 +66,124 @@ struct OptionButtons: View {
     }
     
     func dealAction() {
-        isDealt = true
-        let dealtDeck = viewModel.deal(deck: deck, dealerHand: dealer.hand, playerHand: player.hand)
-        deck = dealtDeck.newDeck
-        self.dealer.hand = dealtDeck.newDealerHand
-        self.player.hand = dealtDeck.newPlayerHand
+        
+        let dealt = vm.deal(deck: deck, dealerHand: dealer.hand, playerHand: player.hand)
+        
+        self.isDealt = true
+        self.deck = dealt.fromDeck
+        self.dealer.hand = dealt.toDealerHand
+        self.player.hand = dealt.toPlayerHand
+
 
         //debugging
+        print("------------------deal------------------")
         print("deck count:" + String(deck!.count))
         print("dealer hand count:" + String(dealer.hand!.count))
         print("dealer hand: \(self.dealer.hand!)")
         print("player hand count:" + String(player.hand!.count))
         print("player hand: \(player.hand!)")
-
+        print("----------------------------------------")
     }
     
     func hitAction() {
         
-        let playerHit = viewModel.hit(deck: deck, hand: player.hand)
-        self.player.hand = playerHit.newHand
-        deck = playerHit.newDeck
+        //Hit the player
+        let hitPlayer = vm.hit(deck: deck, hand: player.hand)
+        self.player.hand = hitPlayer.toHand
+        self.deck = hitPlayer.fromDeck
         
+        //check the current score of dealer
+        self.player.totalCardScore = vm.total(hand: player.hand!)
+        self.dealer.totalCardScore = vm.total(hand: dealer.hand!)
+        
+        //Debugging
+        print("------------player hit------------------")
         print("deck count:" + String(deck!.count))
         print("player hand count:" + String(player.hand!.count))
         print("player hand: \(player.hand!)")
+        print("player total score: \(player.totalCardScore)")
+        print("---------------------------------------")
         
-        //check the current score of dealer
-        self.dealer.totalPoints = viewModel.total(hand: dealer.hand!)
-        print("dealer total: \(dealer.totalPoints)")
-        
-        //Dealer will hit until score becomes 17 or higher
-        while  dealer.totalPoints < 17{
+        //Hit the dealer until score becomes 17 or higher
+        while  dealer.totalCardScore < 17{
    
-            let dealerHit = viewModel.hit(deck: deck, hand: dealer.hand)
-            self.dealer.hand = dealerHit.newHand
-            deck = dealerHit.newDeck
-            self.dealer.totalPoints = viewModel.total(hand: dealer.hand!)
+            let hitDealer = vm.hit(deck: deck, hand: dealer.hand)
+            self.dealer.hand = hitDealer.toHand
+            self.deck = hitDealer.fromDeck
+            self.dealer.totalCardScore = vm.total(hand: dealer.hand!)
         }
-//        print(hitHand)
+        
+        //Debugging
+        print("------------dealer hit------------------")
+        print("deck count:" + String(deck!.count))
+        print("dealer hand count:" + String(dealer.hand!.count))
+        print("dealer hand: \(dealer.hand!)")
+        print("dealer total score: \(dealer.totalCardScore)")
+        print("---------------------------------------")
+        
+        //Assigns a score to the winner
+        let result = vm.result(playerScore: player.totalCardScore, dealerScore: dealer.totalCardScore)
+        self.player.totalWins += result.wins
+        self.dealer.totalWins += result.losses
+        self.displayResult = result.reasonforResult
+        print(displayResult)
+        
+        //reset the game
+        self.isDealt = false
+        self.displayResult = ""
+        self.deck = loadJson(withFilename: "deck_of_cards")
+        self.player.hand = []
+        self.player.totalCardScore = 0
+        self.dealer.hand = []
+        self.player.totalCardScore = 0
+        
     }
     
     func standAction() {
-        isDealt = false
-        viewModel.stand()
+        //check the current score of dealer
+        self.player.totalCardScore = vm.total(hand: player.hand!)
+        self.dealer.totalCardScore = vm.total(hand: dealer.hand!)
+        
+        //Debugging
+        print("------------player stand------------------")
+        print("deck count:" + String(deck!.count))
+        print("player hand count:" + String(player.hand!.count))
+        print("player hand: \(player.hand!)")
+        print("player total score: \(player.totalCardScore)")
+        print("---------------------------------------")
+        
+        //Hit the dealer until score becomes 17 or higher
+        while  dealer.totalCardScore < 17{
+   
+            let hitDealer = vm.hit(deck: deck, hand: dealer.hand)
+            self.dealer.hand = hitDealer.toHand
+            self.deck = hitDealer.fromDeck
+            self.dealer.totalCardScore = vm.total(hand: dealer.hand!)
+        }
+        
+        //Debugging
+        print("------------dealer hit------------------")
+        print("deck count:" + String(deck!.count))
+        print("dealer hand count:" + String(dealer.hand!.count))
+        print("dealer hand: \(dealer.hand!)")
+        print("dealer total score: \(dealer.totalCardScore)")
+        print("---------------------------------------")
+        
+        //Assigns a score to the winner
+        let result = vm.result(playerScore: player.totalCardScore, dealerScore: dealer.totalCardScore)
+        self.player.totalWins += result.wins
+        self.dealer.totalWins += result.losses
+        self.displayResult = result.reasonforResult
+        print(displayResult)
+        
+        //reset the game
+        self.isDealt = false
+        self.displayResult = ""
+        self.deck = loadJson(withFilename: "deck_of_cards")
+        self.player.hand = []
+        self.player.totalCardScore = 0
+        self.dealer.hand = []
+        self.player.totalCardScore = 0
     }
     
     
