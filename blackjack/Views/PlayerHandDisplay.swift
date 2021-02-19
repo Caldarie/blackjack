@@ -9,28 +9,41 @@ import Foundation
 import SwiftUI
 
 struct PlayerHandDisplay: View {
-
+    
     @Binding var player: Status
+    @Binding var message: String
     
     private let vm = HandDisplayViewModel()
-
+    
+    
     var body: some View {
-      HStack {
-        ForEach(ArrayOfCardImages(), id: \.self) { value in
-            Image(uiImage: UIImage(named: value)!)
-                .resizable()
-                .frame(width: 99, height: 153)
-                .aspectRatio(contentMode: .fit)
-                .layoutPriority(1)
+        let arrayOfCards = vm.getImageLocations(hand: player.hand!)
+        
+        ZStack {
+            ForEach(0..<arrayOfCards.count, id: \.self) { index in
+                
+                Image(uiImage: UIImage(named: arrayOfCards[index])!)
+                    .resizable()
+                    .frame(width: 99, height: 153)
+                    .offset(x: cardAlignment(numOfCards: arrayOfCards.count, index: index))
+            }
         }
-     }
     }
     
-
-    func ArrayOfCardImages() -> [String]{
-        let imageLocations = vm.getImageLocations(hand: player.hand!)
-        return imageLocations
+    //Adjust cards to centre whenver the hand increases
+    func cardAlignment(numOfCards: Int, index: Int) -> CGFloat{
+        var offsetX: CGFloat
+        if(numOfCards == 2){
+            offsetX = -20.0 + (CGFloat(index) * 50.0)
+        }else if(numOfCards == 3){
+            offsetX = -50.0 + (CGFloat(index) * 50.0)
+        }else{
+            offsetX = -70.0 + (CGFloat(index) * 50.0)
+            }
+        return offsetX
     }
-    
-    
 }
+
+
+
+
