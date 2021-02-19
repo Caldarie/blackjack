@@ -85,6 +85,7 @@ struct OptionButtons: View {
         let dealt = vm.deal(deck: deck, dealerHand: dealer.hand, playerHand: player.hand)
         
         self.status = gameState.start
+        self.message = "Hit or Stand?"
         self.deck = dealt.fromDeck
         self.dealer.hand = dealt.toDealerHand
         self.player.hand = dealt.toPlayerHand
@@ -190,12 +191,12 @@ struct OptionButtons: View {
     }
     
     func resetAction(){
-        self.message = ""
+        self.message = "Press deal to start."
         self.deck = loadJson(withFilename: "deck_of_cards")
         self.player.hand = []
         self.player.totalCardScore = 0
         self.dealer.hand = []
-        self.player.totalCardScore = 0
+        self.dealer.totalCardScore = 0
         self.status = gameState.reset
     }
     
