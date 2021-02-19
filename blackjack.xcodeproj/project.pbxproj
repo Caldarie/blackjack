@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C36C42925DFC6490073B0D5 /* ButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C36C42825DFC6490073B0D5 /* ButtonTests.swift */; };
+		4C36C43125DFCD060073B0D5 /* deck_of_cards.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C36C43025DFCD060073B0D5 /* deck_of_cards.json */; };
 		4C5A95FC25DD7EC200C106DB /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5A95FB25DD7EC200C106DB /* Deck.swift */; };
 		4C79C31E25DEAE1C00464574 /* MessageDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C79C31D25DEAE1C00464574 /* MessageDisplay.swift */; };
 		4C79C32925DEAF2400464574 /* ScoreDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C79C32825DEAF2400464574 /* ScoreDisplay.swift */; };
@@ -20,7 +22,6 @@
 		4CC6A58325D9E0AB003D74A0 /* PlayerHandDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6A58225D9E0AB003D74A0 /* PlayerHandDisplay.swift */; };
 		4CC6A5A125DA68FB003D74A0 /* ButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6A5A025DA68FB003D74A0 /* ButtonViewModel.swift */; };
 		4CC6A5A925DB6C26003D74A0 /* OptionButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6A5A825DB6C26003D74A0 /* OptionButtons.swift */; };
-		4CC6A5D025DBA3E4003D74A0 /* deck_of_cards.json in Resources */ = {isa = PBXBuildFile; fileRef = 4CC6A5CF25DBA3E4003D74A0 /* deck_of_cards.json */; };
 		4CC6A5DB25DBA8ED003D74A0 /* LoadJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6A5DA25DBA8ED003D74A0 /* LoadJSON.swift */; };
 		4CC6A5EC25DBE6D9003D74A0 /* HandDisplayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6A5EB25DBE6D9003D74A0 /* HandDisplayViewModel.swift */; };
 		4CC6A5F425DBF34B003D74A0 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6A5F325DBF34B003D74A0 /* Status.swift */; };
@@ -44,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C36C42825DFC6490073B0D5 /* ButtonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTests.swift; sourceTree = "<group>"; };
+		4C36C43025DFCD060073B0D5 /* deck_of_cards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = deck_of_cards.json; path = assets/json/deck_of_cards.json; sourceTree = SOURCE_ROOT; };
 		4C5A95FB25DD7EC200C106DB /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		4C79C31D25DEAE1C00464574 /* MessageDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDisplay.swift; sourceTree = "<group>"; };
 		4C79C32825DEAF2400464574 /* ScoreDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreDisplay.swift; sourceTree = "<group>"; };
@@ -63,7 +66,6 @@
 		4CC6A58225D9E0AB003D74A0 /* PlayerHandDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHandDisplay.swift; sourceTree = "<group>"; };
 		4CC6A5A025DA68FB003D74A0 /* ButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonViewModel.swift; sourceTree = "<group>"; };
 		4CC6A5A825DB6C26003D74A0 /* OptionButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionButtons.swift; sourceTree = "<group>"; };
-		4CC6A5CF25DBA3E4003D74A0 /* deck_of_cards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = deck_of_cards.json; path = json/deck_of_cards.json; sourceTree = SOURCE_ROOT; };
 		4CC6A5DA25DBA8ED003D74A0 /* LoadJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadJSON.swift; sourceTree = "<group>"; };
 		4CC6A5EB25DBE6D9003D74A0 /* HandDisplayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandDisplayViewModel.swift; sourceTree = "<group>"; };
 		4CC6A5F325DBF34B003D74A0 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
@@ -125,7 +127,7 @@
 				4CC6A52F25D7C21E003D74A0 /* ContentView.swift */,
 				4CC6A53125D7C221003D74A0 /* Assets.xcassets */,
 				4CC6A53625D7C221003D74A0 /* Info.plist */,
-				4CC6A5CF25DBA3E4003D74A0 /* deck_of_cards.json */,
+				4C36C43025DFCD060073B0D5 /* deck_of_cards.json */,
 				4CC6A53325D7C221003D74A0 /* Preview Content */,
 			);
 			path = blackjack;
@@ -144,6 +146,7 @@
 			children = (
 				4CC6A53F25D7C221003D74A0 /* blackjackTests.swift */,
 				4CC6A54125D7C221003D74A0 /* Info.plist */,
+				4C36C42825DFC6490073B0D5 /* ButtonTests.swift */,
 			);
 			path = blackjackTests;
 			sourceTree = "<group>";
@@ -300,7 +303,7 @@
 			files = (
 				4CC6A53525D7C221003D74A0 /* Preview Assets.xcassets in Resources */,
 				4CC6A53225D7C221003D74A0 /* Assets.xcassets in Resources */,
-				4CC6A5D025DBA3E4003D74A0 /* deck_of_cards.json in Resources */,
+				4C36C43125DFCD060073B0D5 /* deck_of_cards.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +348,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CC6A54025D7C221003D74A0 /* blackjackTests.swift in Sources */,
+				4C36C42925DFC6490073B0D5 /* ButtonTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
