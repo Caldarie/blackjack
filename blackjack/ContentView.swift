@@ -10,63 +10,49 @@ import SwiftUI
 struct ContentView: View {
     
     //Todo - Initialsise in a repository to manage state
-    @State var message: String = "Welcome. Press deal to start."
+    @State var message: String = "Press deal to start."
     @State var deck = loadJson(withFilename: "deck_of_cards")
     @State var player = Status()
     @State var dealer = Status()
- 
+    
     
     
     var body: some View {
         VStack {
             
+            //Score displays at top
+            Spacer()
+                .frame(height: CGFloat(20))
             
             ScoreDisplay(player: $player, dealer: $dealer)
             
             Spacer()
-                .frame(height: CGFloat(20))
             
+            //Hands and message displayed at center
+            Group{
+                
+                DealerHandDisplay(dealer: $dealer, message: $message)
+                
+                Spacer()
+                    .frame(height: CGFloat(20))
+                
+                
+                MessageDisplay(message: $message)
+                
+                Spacer()
+                    .frame(height: CGFloat(20))
+                
+                PlayerHandDisplay(player: $player, message: $message)
+                
+            }
             
-            DealerHandDisplay(dealer: $dealer)
-            
+            //Buttons display at bottom
             Spacer()
-                .frame(height: CGFloat(20))
-            
-            
-            MessageDisplay(message: $message)
-            
-            Spacer()
-                .frame(height: CGFloat(20))
-            
-            PlayerHandDisplay(player: $player)
-            
-            Spacer()
-                .frame(height: CGFloat(20))
             
             OptionButtons(message: $message, deck: $deck, player: $player, dealer: $dealer)
             
             Spacer()
                 .frame(height: CGFloat(20))
-            
-           
-            
-            //            VStack {
-            //                Spacer()
-            //                    .frame(height: CGFloat(20))
-            //
-            //                Divider()
-            //                    .frame(width: CGFloat(267))
-            //
-            //                Spacer()
-            //                    .frame(height: CGFloat(20))
-            //            }
-            //
-            
-            //
-            //            Spacer()
-            //                .frame(height: CGFloat(100))
-            //
-            //            TimerView()
             
         }
     }
