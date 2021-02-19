@@ -9,24 +9,32 @@ import SwiftUI
 struct DealerHandDisplay: View {
     
     @Binding var dealer: Status
+    @Binding var message: String
     
     private let vm = HandDisplayViewModel()
     
+    
     var body: some View {
-        HStack {
-            ForEach(ArrayOfCardImages(), id: \.self) { value in
-                Image(uiImage: UIImage(named: value)!)
-                    .resizable()
-                    .frame(width: 99, height: 153)
-                    .aspectRatio(contentMode: .fit)
-                    .layoutPriority(1)
+        let arrayOfCards = vm.getImageLocations(hand: dealer.hand!)
+        
+        ZStack {
+            ForEach(0..<arrayOfCards.count, id: \.self) { index in
+                if(index == 0 && message == "Hit or Stand?"){
+                    Image(uiImage: UIImage(named: "0_back_of_card.png")!)
+                        .resizable()
+                        .frame(width: 99, height: 153)
+                        .offset(x: vm.cardAlignment(numOfCards: arrayOfCards.count, index: index))
+                    //                .aspectRatio(contentMode: .fit)
+                    //                .layoutPriority(1)
+                }else{
+                    Image(uiImage: UIImage(named: arrayOfCards[index])!)
+                        .resizable()
+                        .frame(width: 99, height: 153)
+                        .offset(x: vm.cardAlignment(numOfCards: arrayOfCards.count, index: index))
+                }
             }
         }
     }
     
     
-    func ArrayOfCardImages() -> [String]{
-        let imageLocations = vm.getImageLocations(hand: dealer.hand!)
-        return imageLocations
-    }
 }
