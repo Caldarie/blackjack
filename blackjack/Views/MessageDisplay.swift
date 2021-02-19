@@ -15,6 +15,8 @@ struct MessageDisplay: View {
     var body: some View {
         
         Text(message)
+            .fixedSize()
+            .font(.system(size: 18, weight: .heavy))
         
     }
     
