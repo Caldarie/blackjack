@@ -18,7 +18,6 @@
 		4CC6A54B25D7C222003D74A0 /* blackjackUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6A54A25D7C222003D74A0 /* blackjackUITests.swift */; };
 		4CC6A56125D7C634003D74A0 /* DealerHandDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6A56025D7C634003D74A0 /* DealerHandDisplay.swift */; };
 		4CC6A58325D9E0AB003D74A0 /* PlayerHandDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6A58225D9E0AB003D74A0 /* PlayerHandDisplay.swift */; };
-		4CC6A58E25DA5E61003D74A0 /* ResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6A58D25DA5E61003D74A0 /* ResultViewModel.swift */; };
 		4CC6A5A125DA68FB003D74A0 /* ButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6A5A025DA68FB003D74A0 /* ButtonViewModel.swift */; };
 		4CC6A5A925DB6C26003D74A0 /* OptionButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6A5A825DB6C26003D74A0 /* OptionButtons.swift */; };
 		4CC6A5D025DBA3E4003D74A0 /* deck_of_cards.json in Resources */ = {isa = PBXBuildFile; fileRef = 4CC6A5CF25DBA3E4003D74A0 /* deck_of_cards.json */; };
@@ -62,7 +61,6 @@
 		4CC6A54C25D7C222003D74A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4CC6A56025D7C634003D74A0 /* DealerHandDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DealerHandDisplay.swift; sourceTree = "<group>"; };
 		4CC6A58225D9E0AB003D74A0 /* PlayerHandDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHandDisplay.swift; sourceTree = "<group>"; };
-		4CC6A58D25DA5E61003D74A0 /* ResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewModel.swift; sourceTree = "<group>"; };
 		4CC6A5A025DA68FB003D74A0 /* ButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonViewModel.swift; sourceTree = "<group>"; };
 		4CC6A5A825DB6C26003D74A0 /* OptionButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionButtons.swift; sourceTree = "<group>"; };
 		4CC6A5CF25DBA3E4003D74A0 /* deck_of_cards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = deck_of_cards.json; path = json/deck_of_cards.json; sourceTree = SOURCE_ROOT; };
@@ -174,7 +172,6 @@
 		4CC6A56A25D7CA9B003D74A0 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
-				4CC6A58D25DA5E61003D74A0 /* ResultViewModel.swift */,
 				4CC6A5A025DA68FB003D74A0 /* ButtonViewModel.swift */,
 				4CC6A5EB25DBE6D9003D74A0 /* HandDisplayViewModel.swift */,
 			);
@@ -336,7 +333,6 @@
 				4CC6A53025D7C21E003D74A0 /* ContentView.swift in Sources */,
 				4CC6A52E25D7C21E003D74A0 /* blackjackApp.swift in Sources */,
 				4CC6A5DB25DBA8ED003D74A0 /* LoadJSON.swift in Sources */,
-				4CC6A58E25DA5E61003D74A0 /* ResultViewModel.swift in Sources */,
 				4C79C32925DEAF2400464574 /* ScoreDisplay.swift in Sources */,
 				4CC6A58325D9E0AB003D74A0 /* PlayerHandDisplay.swift in Sources */,
 				4C5A95FC25DD7EC200C106DB /* Deck.swift in Sources */,
