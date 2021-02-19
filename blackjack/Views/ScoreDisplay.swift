@@ -11,27 +11,37 @@ struct ScoreDisplay: View {
     
     @Binding var player: Status
     @Binding var dealer: Status
-
+    
     
     var body: some View {
-        HStack {
+        
+        VStack{
+            HStack{
+                Text("Wins: " + String(player.totalWins))
+                
+                Spacer()
+                    .frame(width: 20)
+                
+                Text("Losses: " + String(dealer.totalWins))
+                
+                
+            }
             
-            Text(
-                String(player.totalWins)
-            )
-            .fixedSize()
-            .font(.system(size: 72))
-            
-            Spacer()
-                .frame(width: 20)
-            
-            Text(
-                String(dealer.totalWins)
-            )
-            .fixedSize()
-            .font(.system(size: 72))
+            HStack{
+                Text("Player Score: " + String(player.totalCardScore))
+                
+                Spacer()
+                    .frame(width: 20)
+                
+                Text("Dealer Score: " + String(dealer.totalCardScore))
+                
+            }
             
         }
+        .padding()
+        .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: 1)
+//        Spacer()
+        
     }
     
     
