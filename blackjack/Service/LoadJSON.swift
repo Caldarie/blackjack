@@ -7,6 +7,7 @@
 
 import Foundation
 
+//Not really service, but emulates like one
 func loadJson(withFilename fileName: String) -> [Deck]? {
     guard
         let url = Bundle.main.url(forResource: fileName, withExtension: "json"),
