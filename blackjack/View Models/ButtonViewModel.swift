@@ -38,7 +38,7 @@ class ButtonViewModel {
     }
     
 
-    public func total(hand: [Deck?]) -> Int{
+    public func total(hand: [Deck?], numOfAces: Int) -> (cardScore: Int, numOfAce: Int){
         var aceCount: Int = 0
         var handTotal: Int = 0
   
@@ -53,12 +53,6 @@ class ButtonViewModel {
             else if card!.value == 14{
                 aceCount += 1
                 handTotal += 11
-                
-                //if there 1 or more aces and value exceeds 21, aces are converted to 1
-                while handTotal > 21 && aceCount > 0{
-                    handTotal -= 10
-                    aceCount -= 1
-                }
             }
             
             //If card is not a court and is numeral, value remains unchanged
@@ -66,9 +60,15 @@ class ButtonViewModel {
                 handTotal += card!.value
             }
             
+            //if there 1 or more aces and value exceeds 21, aces are converted to 1
+            while handTotal > 21 && aceCount > 0{
+                handTotal -= 10
+                aceCount -= 1
+            }
+            
         }
 
-        return handTotal
+        return (handTotal, aceCount)
     }
     
     

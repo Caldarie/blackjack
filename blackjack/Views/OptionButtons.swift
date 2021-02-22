@@ -81,25 +81,12 @@ struct OptionButtons: View {
         self.deck = dealt.fromDeck
         self.dealer.hand = dealt.toDealerHand
         self.player.hand = dealt.toPlayerHand
-        updateTotalScores()
+        updatePlayerScores()
+        updateDealerScores()
         
         //Update UI
         self.gameState = GameState.start
         self.message = "Hit or Stand?"
-   
-        
-        //debugging
-        print("------------------deal------------------")
-        print("deck count:" + String(deck!.count))
-        
-        print("dealer hand count:" + String(dealer.hand!.count))
-        print("dealer hand: \(self.dealer.hand!)")
-        print("dealer total score: \(dealer.totalCardScore)")
-        
-        print("player hand count:" + String(player.hand!.count))
-        print("player hand: \(player.hand!)")
-        print("player total score: \(player.totalCardScore)")
-        print("----------------------------------------")
     }
     
     func hitAction() {
@@ -108,16 +95,8 @@ struct OptionButtons: View {
         let hitPlayer = vm.hit(deck: deck, hand: player.hand)
         self.player.hand = hitPlayer.toHand
         self.deck = hitPlayer.fromDeck
-        updateTotalScores()
+        updatePlayerScores()
         
-        //Debugging
-        print("------------player hit------------------")
-        print("deck count:" + String(deck!.count))
-        print("player hand count:" + String(player.hand!.count))
-        print("player hand: \(player.hand!)")
-        print("player total score: \(player.totalCardScore)")
-        print("---------------------------------------")
-    
         //If player has blackjack or busts, deal is hit
         if(player.totalCardScore > 20){
             hitDealer()
@@ -129,21 +108,8 @@ struct OptionButtons: View {
         
     
     func standAction() {
-        
-//        updateTotalScores()
-        
-        //Debugging
-        print("------------player stand------------------")
-        print("deck count:" + String(deck!.count))
-        print("player hand count:" + String(player.hand!.count))
-        print("player hand: \(player.hand!)")
-        print("player total score: \(player.totalCardScore)")
-        print("---------------------------------------")
-        
-        
         hitDealer()
         calculateTotalScore()
-        
     }
     
     func resetAction(){
@@ -151,32 +117,22 @@ struct OptionButtons: View {
         self.deck = loadJson(withFilename: "deck_of_cards")
         self.player.hand = []
         self.player.totalCardScore = 0
+        self.player.numberOfAces = 0
         self.dealer.hand = []
         self.dealer.totalCardScore = 0
+        self.player.numberOfAces = 0
         self.gameState = GameState.reset
     }
     
     
     func hitDealer(){
-        //check and update the current score of dealer
-       
-        
         //Hit the dealer until score becomes 17 or higher
         while  dealer.totalCardScore < 17{
             
             let hitDealer = vm.hit(deck: deck, hand: dealer.hand)
             self.dealer.hand = hitDealer.toHand
             self.deck = hitDealer.fromDeck
-            self.dealer.totalCardScore = vm.total(hand: dealer.hand!)
-            
-            
-            //Debugging
-            print("------------dealer hit------------------")
-            print("deck count:" + String(deck!.count))
-            print("dealer hand count:" + String(dealer.hand!.count))
-            print("dealer hand: \(dealer.hand!)")
-            print("dealer total score: \(dealer.totalCardScore)")
-            print("---------------------------------------")
+            updateDealerScores()
         }
     }
     
@@ -192,9 +148,35 @@ struct OptionButtons: View {
         self.gameState = GameState.finished
     }
     
-    func updateTotalScores(){
-        self.player.totalCardScore = vm.total(hand: player.hand!)
-        self.dealer.totalCardScore = vm.total(hand: dealer.hand!)
+    func updatePlayerScores(){
+        let playerTotal = vm.total(hand: player.hand!, numOfAces: player.numberOfAces)
+        self.player.totalCardScore = playerTotal.cardScore
+        self.player.numberOfAces = playerTotal.numOfAce
+        
+        //Debugging
+        print("------------player stand------------------")
+        print("deck count:" + String(deck!.count))
+        print("player hand count:" + String(player.hand!.count))
+        print("player hand: \(player.hand!)")
+        print("player total score: \(player.totalCardScore)")
+        print("player number of aces: \(player.numberOfAces)")
+        print("---------------------------------------")
+    }
+    
+    func updateDealerScores(){
+        let dealerTotal = vm.total(hand: dealer.hand!, numOfAces: dealer.numberOfAces)
+        self.dealer.totalCardScore = dealerTotal.cardScore
+        self.dealer.numberOfAces = dealerTotal.numOfAce
+        
+        //Debugging
+        print("------------dealer hit------------------")
+        print("deck count:" + String(deck!.count))
+        print("dealer hand count:" + String(dealer.hand!.count))
+        print("dealer hand: \(dealer.hand!)")
+        print("dealer total score: \(dealer.totalCardScore)")
+        print("dealer number of aces: \(dealer.numberOfAces)")
+        print("---------------------------------------")
+        
     }
     
 }

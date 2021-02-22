@@ -12,14 +12,17 @@ struct Status: Decodable {
     var totalWins: Int
     var hand: [Deck]?
     var totalCardScore: Int
+    var numberOfAces: Int
     
     //initialise and make it as optional
     init(totalWins: Int = 0,
          hand: [Deck]? = [],
-         totalCardScore: Int = 0){
+         totalCardScore: Int = 0,
+         numberOfAces: Int = 0){
         
         self.totalWins = totalWins
         self.hand = hand
         self.totalCardScore = totalCardScore
+        self.numberOfAces = numberOfAces
     }
 }
