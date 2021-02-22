@@ -16,7 +16,6 @@ class HandDisplayViewModel{
         for i in hand{
             stringLoc.append(i.loc)
         }
-        print(stringLoc)
         return stringLoc
     }
     
@@ -30,8 +29,12 @@ class HandDisplayViewModel{
             offsetX = -50.0 + (CGFloat(index) * 50.0)
         }else if(numOfCards == 4){
             offsetX = -70.0 + (CGFloat(index) * 50.0)
+        }else if(numOfCards == 5){
+            offsetX = -80.0 + (CGFloat(index) * 40.0)
+        }else if(numOfCards == 6){
+            offsetX = -80.0 + (CGFloat(index) * 30.0)
         }else{
-            offsetX = -90.0 + (CGFloat(index) * 50.0)
+            offsetX = -80.0 + (CGFloat(index) * 20.0)
         }
         
         return offsetX
