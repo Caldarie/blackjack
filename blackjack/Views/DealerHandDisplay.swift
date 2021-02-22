@@ -9,7 +9,7 @@ import SwiftUI
 struct DealerHandDisplay: View {
     
     @Binding var dealer: Status
-    @Binding var message: String
+    @Binding var gameState: GameState
     
     private let vm = HandDisplayViewModel()
     
@@ -19,7 +19,7 @@ struct DealerHandDisplay: View {
         
         ZStack {
             ForEach(0..<arrayOfCards.count, id: \.self) { index in
-                if(index == 0 && message == "Hit or Stand?"){
+                if(index == 0 && gameState == GameState.start){
                     Image(uiImage: UIImage(named: "0_back_of_card.png")!)
                         .resizable()
                         .frame(width: 99, height: 153)
