@@ -19,8 +19,4 @@ struct MessageDisplay: View {
             .font(.system(size: 18, weight: .heavy))
         
     }
-    
-    
-    
-    
 }

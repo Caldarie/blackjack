@@ -49,7 +49,6 @@ struct ScoreDisplay: View {
         }
         .padding()
         .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: 1)
-//        Spacer()
         
     }
     
