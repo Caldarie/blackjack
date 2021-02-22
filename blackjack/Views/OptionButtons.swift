@@ -11,23 +11,18 @@ import Combine
 
 struct OptionButtons: View {
     
+    @Binding var gameState: GameState
     @Binding var message: String
     @Binding var deck: [Deck]?
     @Binding var player: Status
     @Binding var dealer: Status
-    
-    @State private var status = gameState.reset
+   
     
     private let vm = ButtonViewModel()
-    private enum gameState {
-        case start
-        case finished
-        case reset
-    }
     
     var body: some View {
         HStack {
-            switch status{
+            switch gameState{
             case .reset:
                 Button(action: dealAction) {
                     Text("Deal")
@@ -83,13 +78,14 @@ struct OptionButtons: View {
         
         //Start dealing
         let dealt = vm.deal(deck: deck, dealerHand: dealer.hand, playerHand: player.hand)
-        
-        self.status = gameState.start
-        self.message = "Hit or Stand?"
         self.deck = dealt.fromDeck
         self.dealer.hand = dealt.toDealerHand
         self.player.hand = dealt.toPlayerHand
         
+        self.gameState = GameState.start
+        self.message = "Hit or Stand?"
+   
+        checkTotalScores()
         
         //debugging
         print("------------------deal------------------")
@@ -102,15 +98,11 @@ struct OptionButtons: View {
     }
     
     func hitAction() {
-        
+                
         //Hit the player
         let hitPlayer = vm.hit(deck: deck, hand: player.hand)
         self.player.hand = hitPlayer.toHand
         self.deck = hitPlayer.fromDeck
-        
-        //check the current score of dealer
-        self.player.totalCardScore = vm.total(hand: player.hand!)
-        self.dealer.totalCardScore = vm.total(hand: dealer.hand!)
         
         //Debugging
         print("------------player hit------------------")
@@ -120,38 +112,20 @@ struct OptionButtons: View {
         print("player total score: \(player.totalCardScore)")
         print("---------------------------------------")
         
-        //Hit the dealer until score becomes 17 or higher
-        while  dealer.totalCardScore < 17{
-            
-            let hitDealer = vm.hit(deck: deck, hand: dealer.hand)
-            self.dealer.hand = hitDealer.toHand
-            self.deck = hitDealer.fromDeck
-            self.dealer.totalCardScore = vm.total(hand: dealer.hand!)
+        checkTotalScores()
+        
+        if(player.totalCardScore > 20){
+            hitDealer()
+            calculateTotalScore()
         }
         
-        //Debugging
-        print("------------dealer hit------------------")
-        print("deck count:" + String(deck!.count))
-        print("dealer hand count:" + String(dealer.hand!.count))
-        print("dealer hand: \(dealer.hand!)")
-        print("dealer total score: \(dealer.totalCardScore)")
-        print("---------------------------------------")
-        
-        //Assigns a score to the winner
-        let result = vm.result(playerScore: player.totalCardScore, dealerScore: dealer.totalCardScore)
-        self.player.totalWins += result.wins
-        self.dealer.totalWins += result.losses
-        self.message = result.reasonforResult
-        print("Result \(message)")
-        
-        //Finished game
-        self.status = gameState.finished
+      
     }
+        
     
     func standAction() {
-        //check the current score of dealer
-        self.player.totalCardScore = vm.total(hand: player.hand!)
-        self.dealer.totalCardScore = vm.total(hand: dealer.hand!)
+        
+        checkTotalScores()
         
         //Debugging
         print("------------player stand------------------")
@@ -161,32 +135,10 @@ struct OptionButtons: View {
         print("player total score: \(player.totalCardScore)")
         print("---------------------------------------")
         
-        //Hit the dealer until score becomes 17 or higher
-        while  dealer.totalCardScore < 17{
-            
-            let hitDealer = vm.hit(deck: deck, hand: dealer.hand)
-            self.dealer.hand = hitDealer.toHand
-            self.deck = hitDealer.fromDeck
-            self.dealer.totalCardScore = vm.total(hand: dealer.hand!)
-        }
         
-        //Debugging
-        print("------------dealer hit------------------")
-        print("deck count:" + String(deck!.count))
-        print("dealer hand count:" + String(dealer.hand!.count))
-        print("dealer hand: \(dealer.hand!)")
-        print("dealer total score: \(dealer.totalCardScore)")
-        print("---------------------------------------")
+        hitDealer()
+        calculateTotalScore()
         
-        //Assigns a score to the winner
-        let result = vm.result(playerScore: player.totalCardScore, dealerScore: dealer.totalCardScore)
-        self.player.totalWins += result.wins
-        self.dealer.totalWins += result.losses
-        self.message = result.reasonforResult
-        print("Result \(message)")
-        
-        //Finished game
-        self.status = gameState.finished
         
     }
     
@@ -197,7 +149,48 @@ struct OptionButtons: View {
         self.player.totalCardScore = 0
         self.dealer.hand = []
         self.dealer.totalCardScore = 0
-        self.status = gameState.reset
+        self.gameState = GameState.reset
+    }
+    
+    
+    func hitDealer(){
+        //check and update the current score of dealer
+       
+        
+        //Hit the dealer until score becomes 17 or higher
+        while  dealer.totalCardScore < 17{
+            
+            let hitDealer = vm.hit(deck: deck, hand: dealer.hand)
+            self.dealer.hand = hitDealer.toHand
+            self.deck = hitDealer.fromDeck
+            self.dealer.totalCardScore = vm.total(hand: dealer.hand!)
+            
+            
+            //Debugging
+            print("------------dealer hit------------------")
+            print("deck count:" + String(deck!.count))
+            print("dealer hand count:" + String(dealer.hand!.count))
+            print("dealer hand: \(dealer.hand!)")
+            print("dealer total score: \(dealer.totalCardScore)")
+            print("---------------------------------------")
+        }
+    }
+    
+    
+    func calculateTotalScore(){
+        //Assigns a score to the winner
+        let result = vm.result(playerScore: player.totalCardScore, dealerScore: dealer.totalCardScore)
+        self.player.totalWins += result.wins
+        self.dealer.totalWins += result.losses
+        self.message = result.reasonforResult
+        print("Result \(message)")
+        
+        self.gameState = GameState.finished
+    }
+    
+    func checkTotalScores(){
+        self.player.totalCardScore = vm.total(hand: player.hand!)
+        self.dealer.totalCardScore = vm.total(hand: dealer.hand!)
     }
     
 }
