@@ -37,27 +37,40 @@ class ButtonViewModel {
         return(currentDeck, currentHand)
     }
     
-    
+
     public func total(hand: [Deck?]) -> Int{
-        var totalCount = 0
-        for i in hand {
+        var aceCount: Int = 0
+        var handTotal: Int = 0
+  
+        for card in hand{
+            
             //If jack, queen and king cards, value becomes 10
-            if i!.value >= 11 && i!.value <= 13{
-                totalCount += 10
-                //If Ace, value becomes either 1 or 11
-            }else if i!.value == 14{
-                if totalCount >= 11{
-                    totalCount += 1
-                }else{
-                    totalCount += 11
-                }
-                //If card is numeral, add as noraml
-            } else {
-                totalCount = totalCount + i!.value
+            if card!.value >= 11 && card!.value <= 13{
+                handTotal += 10
             }
+            
+            //Returns optimal value for ACE
+            else if card!.value == 14{
+                aceCount += 1
+                handTotal += 11
+                
+                //if there 1 or more aces and value exceeds 21, aces are converted to 1
+                while handTotal > 21 && aceCount > 0{
+                    handTotal -= 10
+                    aceCount -= 1
+                }
+            }
+            
+            //If card is not a court and is numeral, value remains unchanged
+            else {
+                handTotal += card!.value
+            }
+            
         }
-        return totalCount
+
+        return handTotal
     }
+    
     
     public func result(playerScore: Int, dealerScore: Int) -> (wins: Int, losses: Int, reasonforResult: String){
         
@@ -83,6 +96,8 @@ class ButtonViewModel {
         }else if playerScore > dealerScore {
             currentPlayerScore = 1
             currentReasonForScore = "You win!"
+        }else{
+            currentReasonForScore = "Tie. No win or loss"
         }
         
         

@@ -76,24 +76,29 @@ struct OptionButtons: View {
     
     func dealAction() {
         
-        //Start dealing
+        //Variables updated for deal action
         let dealt = vm.deal(deck: deck, dealerHand: dealer.hand, playerHand: player.hand)
         self.deck = dealt.fromDeck
         self.dealer.hand = dealt.toDealerHand
         self.player.hand = dealt.toPlayerHand
+        updateTotalScores()
         
+        //Update UI
         self.gameState = GameState.start
         self.message = "Hit or Stand?"
    
-        checkTotalScores()
         
         //debugging
         print("------------------deal------------------")
         print("deck count:" + String(deck!.count))
+        
         print("dealer hand count:" + String(dealer.hand!.count))
         print("dealer hand: \(self.dealer.hand!)")
+        print("dealer total score: \(dealer.totalCardScore)")
+        
         print("player hand count:" + String(player.hand!.count))
         print("player hand: \(player.hand!)")
+        print("player total score: \(player.totalCardScore)")
         print("----------------------------------------")
     }
     
@@ -103,6 +108,7 @@ struct OptionButtons: View {
         let hitPlayer = vm.hit(deck: deck, hand: player.hand)
         self.player.hand = hitPlayer.toHand
         self.deck = hitPlayer.fromDeck
+        updateTotalScores()
         
         //Debugging
         print("------------player hit------------------")
@@ -111,9 +117,8 @@ struct OptionButtons: View {
         print("player hand: \(player.hand!)")
         print("player total score: \(player.totalCardScore)")
         print("---------------------------------------")
-        
-        checkTotalScores()
-        
+    
+        //If player has blackjack or busts, deal is hit
         if(player.totalCardScore > 20){
             hitDealer()
             calculateTotalScore()
@@ -125,7 +130,7 @@ struct OptionButtons: View {
     
     func standAction() {
         
-        checkTotalScores()
+//        updateTotalScores()
         
         //Debugging
         print("------------player stand------------------")
@@ -138,7 +143,6 @@ struct OptionButtons: View {
         
         hitDealer()
         calculateTotalScore()
-        
         
     }
     
@@ -182,13 +186,13 @@ struct OptionButtons: View {
         let result = vm.result(playerScore: player.totalCardScore, dealerScore: dealer.totalCardScore)
         self.player.totalWins += result.wins
         self.dealer.totalWins += result.losses
-        self.message = result.reasonforResult
-        print("Result \(message)")
         
+        //Updates UI
+        self.message = result.reasonforResult
         self.gameState = GameState.finished
     }
     
-    func checkTotalScores(){
+    func updateTotalScores(){
         self.player.totalCardScore = vm.total(hand: player.hand!)
         self.dealer.totalCardScore = vm.total(hand: dealer.hand!)
     }
