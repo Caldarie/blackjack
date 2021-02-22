@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C20198725E2A80A00A60682 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C20198625E2A80A00A60682 /* GameState.swift */; };
+		4C20198C25E2AC2500A60682 /* ScoreDisplayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C20198B25E2AC2500A60682 /* ScoreDisplayViewModel.swift */; };
 		4C36C42925DFC6490073B0D5 /* ButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C36C42825DFC6490073B0D5 /* ButtonTests.swift */; };
 		4C36C43125DFCD060073B0D5 /* deck_of_cards.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C36C43025DFCD060073B0D5 /* deck_of_cards.json */; };
 		4C5A95FC25DD7EC200C106DB /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5A95FB25DD7EC200C106DB /* Deck.swift */; };
@@ -45,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C20198625E2A80A00A60682 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
+		4C20198B25E2AC2500A60682 /* ScoreDisplayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreDisplayViewModel.swift; sourceTree = "<group>"; };
 		4C36C42825DFC6490073B0D5 /* ButtonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTests.swift; sourceTree = "<group>"; };
 		4C36C43025DFCD060073B0D5 /* deck_of_cards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = deck_of_cards.json; path = assets/json/deck_of_cards.json; sourceTree = SOURCE_ROOT; };
 		4C5A95FB25DD7EC200C106DB /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 			children = (
 				4CC6A5A025DA68FB003D74A0 /* ButtonViewModel.swift */,
 				4CC6A5EB25DBE6D9003D74A0 /* HandDisplayViewModel.swift */,
+				4C20198B25E2AC2500A60682 /* ScoreDisplayViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -186,6 +191,7 @@
 			children = (
 				4C5A95FB25DD7EC200C106DB /* Deck.swift */,
 				4CC6A5F325DBF34B003D74A0 /* Status.swift */,
+				4C20198625E2A80A00A60682 /* GameState.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -328,8 +334,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C20198C25E2AC2500A60682 /* ScoreDisplayViewModel.swift in Sources */,
 				4CC6A5EC25DBE6D9003D74A0 /* HandDisplayViewModel.swift in Sources */,
 				4C79C31E25DEAE1C00464574 /* MessageDisplay.swift in Sources */,
+				4C20198725E2A80A00A60682 /* GameState.swift in Sources */,
 				4CC6A5A125DA68FB003D74A0 /* ButtonViewModel.swift in Sources */,
 				4CC6A5A925DB6C26003D74A0 /* OptionButtons.swift in Sources */,
 				4CC6A5F425DBF34B003D74A0 /* Status.swift in Sources */,
