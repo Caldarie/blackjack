@@ -36,14 +36,7 @@ class ScoreDisplayViewModel{
                 if index == 0{
                     firstCardValue = 11
                 }
-                
-                //if there 1 or more aces and value exceeds 21, aces are converted to 1
-                while handTotal > 21 && aceCount != 0{
-                    handTotal -= 10
-                    aceCount -= 1
-                }
             }
-            
             
             //If card is not a court and is numeral, value remains unchanged
             else {
@@ -53,6 +46,12 @@ class ScoreDisplayViewModel{
                 if index == 0{
                     firstCardValue =  handTotal
                 }
+            }
+            
+            //if there 1 or more aces and value exceeds 21, aces are converted to 1
+            while handTotal > 21 && aceCount > 0{
+                handTotal -= 10
+                aceCount -= 1
             }
         }
         return (handTotal - firstCardValue)
