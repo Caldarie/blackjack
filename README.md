@@ -1,6 +1,6 @@
 # Blackjack - native iOS application
 
-This project intergrates swiftUI with MVVM architecture. Its a simple demonstration on how to implement MVVM for blackjack
+This project is a simple demonstration on how to intergrate swiftUI with MVVM architecture. 
 
 Although, technically, blackjack does not require any api service per se, the json data (containing deck info) does emulate it to an extent.
 
