@@ -117,10 +117,8 @@ struct OptionButtons: View {
         self.deck = loadJson(withFilename: "deck_of_cards")
         self.player.hand = []
         self.player.totalCardScore = 0
-        self.player.numberOfAces = 0
         self.dealer.hand = []
         self.dealer.totalCardScore = 0
-        self.player.numberOfAces = 0
         self.gameState = GameState.reset
     }
     
@@ -149,9 +147,8 @@ struct OptionButtons: View {
     }
     
     func updatePlayerScores(){
-        let playerTotal = vm.total(hand: player.hand!, numOfAces: player.numberOfAces)
+        let playerTotal = vm.total(hand: player.hand!)
         self.player.totalCardScore = playerTotal.cardScore
-        self.player.numberOfAces = playerTotal.numOfAce
         
         //Debugging
         print("------------player stand------------------")
@@ -159,14 +156,12 @@ struct OptionButtons: View {
         print("player hand count:" + String(player.hand!.count))
         print("player hand: \(player.hand!)")
         print("player total score: \(player.totalCardScore)")
-        print("player number of aces: \(player.numberOfAces)")
         print("---------------------------------------")
     }
     
     func updateDealerScores(){
-        let dealerTotal = vm.total(hand: dealer.hand!, numOfAces: dealer.numberOfAces)
+        let dealerTotal = vm.total(hand: dealer.hand!)
         self.dealer.totalCardScore = dealerTotal.cardScore
-        self.dealer.numberOfAces = dealerTotal.numOfAce
         
         //Debugging
         print("------------dealer hit------------------")
@@ -174,7 +169,6 @@ struct OptionButtons: View {
         print("dealer hand count:" + String(dealer.hand!.count))
         print("dealer hand: \(dealer.hand!)")
         print("dealer total score: \(dealer.totalCardScore)")
-        print("dealer number of aces: \(dealer.numberOfAces)")
         print("---------------------------------------")
         
     }

@@ -38,7 +38,7 @@ class ButtonViewModel {
     }
     
 
-    public func total(hand: [Deck?], numOfAces: Int) -> (cardScore: Int, numOfAce: Int){
+    public func total(hand: [Deck?]) -> (cardScore: Int, numOfAce: Int){
         var aceCount: Int = 0
         var handTotal: Int = 0
   
@@ -67,7 +67,7 @@ class ButtonViewModel {
             }
             
         }
-
+        //return aceCount for unit testing
         return (handTotal, aceCount)
     }
     
