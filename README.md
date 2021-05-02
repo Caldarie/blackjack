@@ -2,7 +2,7 @@
 
 This project is a simple demonstration on how to intergrate swiftUI with MVVM architecture. 
 
-Although, technically, blackjack does not require any api service per se, the json data (containing deck info) does emulate it to an extent.
+Although, technically, blackjack does not require any api service per se, the json data (containing deck info) does emulate it to an extent
 
 <br>
 
